@@ -8,6 +8,7 @@ RUN apt-get update && \
     apt-get install -y \
     curl \
     unzip \
+    zip \
     && rm -rf /var/lib/apt/lists/*
 
 # AWS CLI v2をインストール

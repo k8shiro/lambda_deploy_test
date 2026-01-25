@@ -54,6 +54,7 @@ docker build -t lambda-deploy-cli .
 docker run --rm -it \
   -v $(pwd):/app \
   --env-file .env \
+  -e AWS_PAGER= \
   lambda-deploy-cli \
   bash -c "chmod +x deploy.sh && ./deploy.sh"
 ```
@@ -127,6 +128,7 @@ cat response.json
 docker run --rm -it \
   -v $(pwd):/app \
   --env-file .env \
+  -e AWS_PAGER= \
   lambda-deploy-cli \
   bash -c "chmod +x cleanup.sh && ./cleanup.sh"
 ```
