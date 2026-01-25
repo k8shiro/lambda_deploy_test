@@ -16,19 +16,21 @@ AWS CLIを直接使用してLambda関数をデプロイする方法です。
 
 ### AWS認証情報
 
-以下のいずれかの方法でAWS認証情報を設定してください：
+`.env`ファイルを作成してAWS認証情報を設定してください：
 
-1. 環境変数を使用
 ```bash
-export AWS_ACCESS_KEY_ID="your-access-key"
-export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_DEFAULT_REGION="ap-northeast-1"
+cp .env.example .env
 ```
 
-2. AWS CLIの設定ファイルを使用
-```bash
-aws configure
+`.env`ファイルを編集して認証情報を入力：
+
 ```
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_DEFAULT_REGION=ap-northeast-1
+```
+
+※ `.env`ファイルはGitにコミットしないでください（`.gitignore`に追加済み）
 
 ### 必要な権限
 
@@ -51,9 +53,7 @@ docker build -t lambda-deploy-cli .
 ```bash
 docker run --rm -it \
   -v $(pwd):/app \
-  -e AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY \
-  -e AWS_DEFAULT_REGION \
+  --env-file .env \
   lambda-deploy-cli \
   bash -c "chmod +x deploy.sh && ./deploy.sh"
 ```
@@ -126,9 +126,7 @@ cat response.json
 ```bash
 docker run --rm -it \
   -v $(pwd):/app \
-  -e AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY \
-  -e AWS_DEFAULT_REGION \
+  --env-file .env \
   lambda-deploy-cli \
   bash -c "chmod +x cleanup.sh && ./cleanup.sh"
 ```
@@ -149,6 +147,7 @@ chmod +x cleanup.sh
 
 ```
 aws_cli/
+├── .env.example            # 環境変数のサンプル
 ├── Dockerfile              # デプロイ環境用Dockerイメージ
 ├── README.md               # このファイル
 ├── cleanup.sh              # クリーンアップスクリプト
