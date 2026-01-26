@@ -21,3 +21,7 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Lambda Inspector成果物
+*.zip
+lambda_inspector/lambda_code/
