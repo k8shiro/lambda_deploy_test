@@ -1,4 +1,4 @@
-import pkg_resources
+from importlib.metadata import distributions
 
-for d in pkg_resources.working_set:
-    print(f'{d.project_name}=={d.version}')
+for d in distributions():
+    print(f'{d.metadata["Name"]}=={d.version}')
