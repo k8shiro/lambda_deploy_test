@@ -44,19 +44,23 @@ AWS_DEFAULT_REGION=us-east-1
 docker build -t lambda-inspector .
 ```
 
-### 2. コンテナを起動して検査を実行
+### 2. 検査対象の関数名を設定
+
+```bash
+FUNCTION_NAME=your-lambda-function-name
+```
+
+### 3. コンテナを起動して検査を実行
 
 ```bash
 docker run --rm -it \
   -v $(pwd):/app \
   --env-file .env \
   -e AWS_PAGER= \
-  -e FUNCTION_NAME=your-lambda-function-name \
+  -e FUNCTION_NAME=${FUNCTION_NAME} \
   lambda-inspector \
   bash -c "chmod +x inspect.sh && ./inspect.sh"
 ```
-
-`FUNCTION_NAME`には検査したいLambda関数の名前を指定してください。
 
 ## 出力例
 
