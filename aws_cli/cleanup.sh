@@ -7,7 +7,7 @@ set -e
 # 設定
 FUNCTION_NAME="lambda-deploy-test-cli"
 ROLE_NAME="lambda-deploy-test-role"
-REGION="ap-northeast-1"
+REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 
 echo "=== Lambda関数クリーンアップスクリプト (AWS CLI) ==="
 
