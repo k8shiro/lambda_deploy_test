@@ -7,7 +7,7 @@ set -e
 # 設定
 FUNCTION_NAME="lambda-deploy-test-cli"
 ROLE_NAME="lambda-deploy-test-role"
-REGION="ap-northeast-1"
+REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 RUNTIME="python3.12"
 HANDLER="lambda_function.lambda_handler"
 
@@ -113,4 +113,4 @@ echo "関数名: $FUNCTION_NAME"
 echo "リージョン: $REGION"
 echo ""
 echo "マネジメントコンソールでテストしてください："
-echo "https://ap-northeast-1.console.aws.amazon.com/lambda/home?region=ap-northeast-1#/functions/$FUNCTION_NAME"
+echo "https://${REGION}.console.aws.amazon.com/lambda/home?region=${REGION}#/functions/$FUNCTION_NAME"

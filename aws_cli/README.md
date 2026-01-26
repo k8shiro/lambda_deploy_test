@@ -27,7 +27,7 @@ cp .env.example .env
 ```
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret-key
-AWS_DEFAULT_REGION=ap-northeast-1
+AWS_DEFAULT_REGION=us-east-1
 ```
 
 ※ `.env`ファイルはGitにコミットしないでください（`.gitignore`に追加済み）
@@ -85,7 +85,7 @@ chmod +x deploy.sh
 3. Lambda関数の作成または更新
    - 関数名: `lambda-deploy-test-cli`
    - ランタイム: Python 3.12
-   - リージョン: ap-northeast-1
+   - リージョン: .envで指定したリージョン（デフォルト: us-east-1）
 
 ## 動作確認
 
@@ -93,7 +93,7 @@ chmod +x deploy.sh
 
 ### マネジメントコンソールでテスト
 
-1. [Lambda コンソール](https://ap-northeast-1.console.aws.amazon.com/lambda/home?region=ap-northeast-1#/functions/lambda-deploy-test-cli)にアクセス
+1. デプロイ完了時に表示されるLambdaコンソールのURLにアクセス
 
 2. 「テスト」タブを開く
 
@@ -111,7 +111,7 @@ chmod +x deploy.sh
 ```bash
 aws lambda invoke \
   --function-name lambda-deploy-test-cli \
-  --region ap-northeast-1 \
+  --region us-east-1 \
   --payload '{}' \
   response.json
 
