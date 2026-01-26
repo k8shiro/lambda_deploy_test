@@ -25,7 +25,7 @@ cp .env.example .env
 ```
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret-key
-AWS_DEFAULT_REGION=ap-northeast-1
+AWS_DEFAULT_REGION=us-east-1
 ```
 
 ※ `.env`ファイルはGitにコミットしないでください（`.gitignore`に追加済み）
