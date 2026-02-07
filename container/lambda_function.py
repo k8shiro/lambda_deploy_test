@@ -1,0 +1,57 @@
+"""
+Lambda関数のサンプルコード
+
+外部パッケージ（requests）を使用してHTTPリクエストを実行するシンプルな例
+コンテナイメージとしてデプロイされる
+"""
+
+import json
+import requests
+from datetime import datetime
+
+
+def lambda_handler(event, context):
+    """
+    Lambda関数のエントリーポイント
+
+    Args:
+        event: Lambda関数に渡されるイベントデータ
+        context: Lambda関数の実行コンテキスト
+
+    Returns:
+        dict: ステータスコードとボディを含むレスポンス
+    """
+
+    # 現在時刻を取得
+    current_time = datetime.now().isoformat()
+
+    # 外部パッケージ（requests）を使用した例
+    try:
+        # JSONPlaceholderの公開APIを使用
+        response = requests.get('https://jsonplaceholder.typicode.com/posts/1', timeout=5)
+        api_data = response.json()
+
+        result = {
+            'statusCode': 200,
+            'body': json.dumps({
+                'message': 'Hello from Lambda (deployed via Container Image)!',
+                'timestamp': current_time,
+                'external_api_response': {
+                    'title': api_data.get('title'),
+                    'userId': api_data.get('userId')
+                },
+                'requests_version': requests.__version__
+            }, ensure_ascii=False)
+        }
+
+    except Exception as e:
+        result = {
+            'statusCode': 500,
+            'body': json.dumps({
+                'message': 'Error occurred',
+                'error': str(e),
+                'timestamp': current_time
+            }, ensure_ascii=False)
+        }
+
+    return result
