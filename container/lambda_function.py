@@ -1,12 +1,13 @@
 """
 Lambda関数のサンプルコード
 
-外部パッケージ（requests）を使用してHTTPリクエストを実行するシンプルな例
+外部パッケージ（requests, pyfiglet）を使用するシンプルな例
 コンテナイメージとしてデプロイされる
 """
 
 import json
 import requests
+import pyfiglet
 from datetime import datetime
 
 
@@ -25,6 +26,9 @@ def lambda_handler(event, context):
     # 現在時刻を取得
     current_time = datetime.now().isoformat()
 
+    # pyfigletでアスキーアートを生成
+    ascii_art = pyfiglet.figlet_format("Hello Lambda!")
+
     # 外部パッケージ（requests）を使用した例
     try:
         # JSONPlaceholderの公開APIを使用
@@ -35,12 +39,14 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps({
                 'message': 'Hello from Lambda (deployed via Container Image)!',
+                'ascii_art': ascii_art,
                 'timestamp': current_time,
                 'external_api_response': {
                     'title': api_data.get('title'),
                     'userId': api_data.get('userId')
                 },
-                'requests_version': requests.__version__
+                'requests_version': requests.__version__,
+                'pyfiglet_version': pyfiglet.__version__
             }, ensure_ascii=False)
         }
 
